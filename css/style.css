@@ -1,0 +1,82 @@
+.similar-posts-block {
+    list-style-type: none;
+    padding: 0;
+}
+
+.similar-posts-block li {
+    margin-bottom: 10px;
+}
+
+.similar-posts-block a {
+    text-decoration: none;
+    color: #0073aa;
+}
+
+.similar-posts-block a:hover {
+    text-decoration: underline;
+}
+
+.similar-posts-cards {
+    display: grid;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+/* Prikaz za 1 karticu po redu */
+.posts-count-1 .similar-post-card {
+    grid-template-columns: 1fr;
+    width: 100%;
+}
+
+/* Prikaz za 2 kartice po redu */
+.posts-count-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* Prikaz za 3 kartice po redu */
+.posts-count-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Prikaz za 4 kartice po redu */
+.posts-count-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Stilizacija kartica */
+.similar-post-card {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.similar-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.similar-post-thumbnail img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+}
+
+.similar-post-content {
+    padding: 15px;
+}
+
+.similar-post-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.similar-post-link {
+    text-decoration: none;
+    color: inherit;
+}
