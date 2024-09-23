@@ -51,9 +51,9 @@ registerBlockType('similar-posts/block', {
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title={__('Podešavanja', 'similar-posts-plugin')}>
+                    <PanelBody title={__('Settings', 'similar-posts-plugin')}>
                         <RangeControl
-                            label={__('Broj objava za prikaz', 'similar-posts-plugin')}
+                            label={__('Number of posts to display', 'similar-posts-plugin')}
                             value={postsToShow}
                             onChange={(value) => setAttributes({ postsToShow: value })}
                             min={1}
@@ -73,7 +73,7 @@ registerBlockType('similar-posts/block', {
                         </ul>
                     ) : (
                         <Placeholder>
-                            {__('Nema sličnih objava za prikaz.', 'similar-posts-plugin')}
+                            {__('No related posts to display.', 'similar-posts-plugin')}
                         </Placeholder>
                     )
                 ) : (

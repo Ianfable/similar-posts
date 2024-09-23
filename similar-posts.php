@@ -40,7 +40,7 @@ function similar_posts_render_callback( $attributes ) {
     global $post;
 
     if ( ! $post ) {
-        return __( 'Trenutno nema sadržaja za prikaz sličnih objava.', 'similar-posts-plugin' );
+        return __( 'Currently, there is no content to display related posts.', 'similar-posts-plugin' );
     }
 
     $posts_to_show = isset( $attributes['postsToShow'] ) ? intval( $attributes['postsToShow'] ) : 2;
@@ -51,7 +51,7 @@ function similar_posts_render_callback( $attributes ) {
     $categories = wp_get_post_terms( $post->ID, 'category', array( 'fields' => 'ids' ) );
 
     if ( empty( $categories ) ) {
-        return __( 'Ova objava nema kategorije.', 'similar-posts-plugin' );
+        return __( 'This post has no categories', 'similar-posts-plugin' );
     }
 
     $args = array(
@@ -70,7 +70,7 @@ function similar_posts_render_callback( $attributes ) {
     $similar_posts = new WP_Query( $args );
 
     if ( ! $similar_posts->have_posts() ) {
-        return __( 'Nema sličnih objava za prikaz.', 'similar-posts-plugin' );
+        return __( 'There are no related posts to display', 'similar-posts-plugin' );
     }
 
     // Dodaj klasu na osnovu broja postova koji se prikazuju
