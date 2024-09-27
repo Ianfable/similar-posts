@@ -44,6 +44,8 @@ function similar_posts_render_callback( $attributes ) {
     }
 
     $posts_to_show = isset( $attributes['postsToShow'] ) ? intval( $attributes['postsToShow'] ) : 2;
+    $display_as_list = isset( $attributes['displayAsList'] ) ? (bool) $attributes['displayAsList'] : false;
+
     if ( $posts_to_show < 1 || $posts_to_show > 4 ) {
         $posts_to_show = 2;
     }
@@ -73,29 +75,38 @@ function similar_posts_render_callback( $attributes ) {
         return __( 'There are no related posts to display', 'similar-posts-plugin' );
     }
 
-    // Dodaj klasu na osnovu broja postova koji se prikazuju
-    $output = '<div class="similar-posts-cards posts-count-' . $posts_to_show . '">';
+    // Generisanje izlaza u zavisnosti od vrednosti atributa displayAsList
+    if ( $display_as_list ) {
+        $output = '<ul class="similar-posts-list">';
+        while ( $similar_posts->have_posts() ) {
+            $similar_posts->the_post();
+            $title = esc_html( get_the_title() );
+            $permalink = get_permalink();
+            $output .= '<li><a href="' . $permalink . '">' . $title . '</a></li>';
+        }
+        $output .= '</ul>';
+    } else {
+        $output = '<div class="similar-posts-cards posts-count-' . $posts_to_show . '">';
+        while ( $similar_posts->have_posts() ) {
+            $similar_posts->the_post();
+            $thumbnail = get_the_post_thumbnail( get_the_ID(), 'medium', array( 'class' => 'similar-posts-thumbnail' ) );
+            $title = esc_html( get_the_title() );
+            $permalink = get_permalink();
 
-    while ( $similar_posts->have_posts() ) {
-        $similar_posts->the_post();
-        $thumbnail = get_the_post_thumbnail( get_the_ID(), 'medium', array( 'class' => 'similar-posts-thumbnail' ) );
-        $title = esc_html( get_the_title() );
-        $permalink = get_permalink();
-
-        $output .= '
-        <div class="similar-post-card">
-            <a href="' . $permalink . '" class="similar-post-link">
-                <div class="similar-post-thumbnail">
-                    ' . $thumbnail . '
-                </div>
-                <div class="similar-post-content">
-                    <h4 class="similar-post-title">' . $title . '</h4>
-                </div>
-            </a>
-        </div>';
+            $output .= '
+            <div class="similar-post-card">
+                <a href="' . $permalink . '" class="similar-post-link">
+                    <div class="similar-post-thumbnail">
+                        ' . $thumbnail . '
+                    </div>
+                    <div class="similar-post-content">
+                        <h4 class="similar-post-title">' . $title . '</h4>
+                    </div>
+                </a>
+            </div>';
+        }
+        $output .= '</div>';
     }
-
-    $output .= '</div>';
 
     wp_reset_postdata();
 
@@ -104,7 +115,6 @@ function similar_posts_render_callback( $attributes ) {
 
 
 
-// Učitavanje tekst domena za internacionalizaciju (opciono)
 function similar_posts_plugin_load_textdomain() {
     load_plugin_textdomain( 'similar-posts-plugin', false, basename( dirname( __FILE__ ) ) . '/languages' );
 }

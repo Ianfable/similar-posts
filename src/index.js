@@ -5,7 +5,7 @@ import {
     useBlockProps,
     BlockControls,
 } from '@wordpress/block-editor';
-import { PanelBody, RangeControl, Spinner, Placeholder } from '@wordpress/components';
+import { PanelBody, RangeControl, Spinner, Placeholder, CheckboxControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 
 registerBlockType('similar-posts/block', {
@@ -18,10 +18,14 @@ registerBlockType('similar-posts/block', {
             type: 'number',
             default: 2,
         },
+        displayAsList: {
+            type: 'boolean',
+            default: false,
+        },
     },
 
     edit: ({ attributes, setAttributes }) => {
-        const { postsToShow } = attributes;
+        const { postsToShow, displayAsList } = attributes;
         const blockProps = useBlockProps();
 
         // Dobijanje trenutne objave
@@ -58,6 +62,11 @@ registerBlockType('similar-posts/block', {
                             onChange={(value) => setAttributes({ postsToShow: value })}
                             min={1}
                             max={4}
+                        />
+                        <CheckboxControl
+                            label={__('Display as list', 'similar-posts-plugin')}
+                            checked={displayAsList}
+                            onChange={(value) => setAttributes({ displayAsList: value })}
                         />
                     </PanelBody>
                 </InspectorControls>
