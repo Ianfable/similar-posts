@@ -9,7 +9,7 @@ import { PanelBody, RangeControl, Spinner, Placeholder } from '@wordpress/compon
 import { useSelect } from '@wordpress/data';
 
 registerBlockType('similar-posts/block', {
-    title: __('Slične Objave', 'similar-posts-plugin'),
+    title: __('Similar posts', 'similar-posts-plugin'),
     icon: 'admin-post',
     category: 'widgets',
 
@@ -84,6 +84,6 @@ registerBlockType('similar-posts/block', {
     },
 
     save: () => {
-        return null; // Koristimo server-side renderovanje
+        return null; 
     },
 });
